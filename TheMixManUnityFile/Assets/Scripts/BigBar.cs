@@ -77,7 +77,6 @@ public class BigBar : MonoBehaviour
     void CheckOvershoot(KeyCode keyCode)
     {
         bool isOver100 = current_L_I_Prog + current_R_I_Prog > 100;
-        Debug.Log("Before changes:  " + isOver100);
 
         if (isOver100 && keyCode == KeyCode.Q)
         {
@@ -93,12 +92,6 @@ public class BigBar : MonoBehaviour
 
         current_L_I_Prog = l_I_Rect.rect.width;
         current_R_I_Prog = r_I_Rect.rect.width;
-
-        isOver100 = current_L_I_Prog + current_R_I_Prog > 100;
-
-        Debug.Log("After changes:  " + isOver100);
-
-        Debug.Log("current L_Prog: " + current_L_I_Prog + "  current R_Prog: " + current_R_I_Prog);
     }
 
     void CheckBoundaries()
