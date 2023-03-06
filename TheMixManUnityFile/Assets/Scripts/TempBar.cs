@@ -11,8 +11,8 @@ public class TempBar : MonoBehaviour
     [SerializeField] float speed = 0.1f;
     bool achievedEnd = false;
 
-    float valueWhenPressed1 = 0;
-    float valueWhenPressed2 = 0;
+    public float valueWhenPressed1 = 0;
+    public float valueWhenPressed2 = 0;
 
 
     // Start is called before the first frame update
