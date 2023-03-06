@@ -82,13 +82,13 @@ public class BigBar : MonoBehaviour
         if (isOver100 && keyCode == KeyCode.Q)
         {
             r_I_Rect.sizeDelta = new Vector2(100 - current_L_I_Prog, r_I_Rect.rect.height);
-           
+            l_I_Overshoot =  current_L_I_Prog - max_L_I_Prog;
         }
 
         if (isOver100 && keyCode == KeyCode.E)
         {
             l_I_Rect.sizeDelta = new Vector2(100 - current_R_I_Prog, l_I_Rect.rect.height);
-            
+            r_I_Overshoot = current_R_I_Prog - max_R_I_Prog;
         }
 
         current_L_I_Prog = l_I_Rect.rect.width;
