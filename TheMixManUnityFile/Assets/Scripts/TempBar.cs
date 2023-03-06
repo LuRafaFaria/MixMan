@@ -43,6 +43,15 @@ public class TempBar : MonoBehaviour
             }
         }
 
+        
+        
+
+
+    }
+
+
+    private void FixedUpdate()
+    {
         switch (statBarTemp)
         {
             case StatBar.Temp1:
@@ -58,9 +67,6 @@ public class TempBar : MonoBehaviour
                 }
                 break;
         }
-        
-
-
     }
 
     void StoreValueNowTemp1()

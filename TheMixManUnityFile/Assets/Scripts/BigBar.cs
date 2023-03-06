@@ -8,6 +8,11 @@ public class BigBar : MonoBehaviour
     [SerializeField]GameObject r_I_Prog;
     [SerializeField]GameObject goal;
 
+
+    [SerializeField] GameObject tempBar1;
+    [SerializeField] GameObject tempBar2;
+
+
     RectTransform l_I_Rect;
     RectTransform r_I_Rect;
     RectTransform goalRect;
@@ -49,29 +54,46 @@ public class BigBar : MonoBehaviour
 
     }
 
+    IEnumerator Wait1FrameQ() 
+    {
+        yield return null;
+        Debug.Log("coisou1");
+
+        l_I_Rect.sizeDelta = new Vector2(l_I_Rect.rect.width + tempBar1.GetComponent<TempBar>().valueWhenPressed1 / 2f, l_I_Rect.rect.height);
+        current_L_I_Prog = l_I_Rect.rect.width;
+        CheckOvershoot(KeyCode.Q);
+    }
+
+    IEnumerator Wait1FrameE()
+    {
+        yield return null;
+        Debug.Log("coisou2");
+        r_I_Rect.sizeDelta = new Vector2(r_I_Rect.rect.width + tempBar2.GetComponent<TempBar>().valueWhenPressed2 / 2f, r_I_Rect.rect.height);
+        current_R_I_Prog = r_I_Rect.rect.width;
+        CheckOvershoot(KeyCode.E);
+    }
+
     // Update is called once per frame
     void Update()
     {
         CheckGoal();
         CheckBoundaries();
         
-        
 
+             
+    }
+
+
+    private void FixedUpdate()
+    {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            l_I_Rect.sizeDelta = new Vector2(l_I_Rect.rect.width + 5, l_I_Rect.rect.height);
-            current_L_I_Prog = l_I_Rect.rect.width;
-            CheckOvershoot(KeyCode.Q);
-           
-        }            
+            StartCoroutine(Wait1FrameQ());
+        }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            r_I_Rect.sizeDelta = new Vector2(r_I_Rect.rect.width + 5, r_I_Rect.rect.height);
-            current_R_I_Prog = r_I_Rect.rect.width;
-            CheckOvershoot(KeyCode.E);
-            
+            StartCoroutine(Wait1FrameE());
         }
-             
     }
 
     void CheckOvershoot(KeyCode keyCode)
