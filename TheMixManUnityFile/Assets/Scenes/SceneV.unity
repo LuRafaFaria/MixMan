@@ -517,6 +517,7 @@ MonoBehaviour:
   l_I_Prog: {fileID: 623712827}
   r_I_Prog: {fileID: 1378607759}
   goal: {fileID: 919423055}
+  bothInGoal: 0
 --- !u!114 &1192784360
 MonoBehaviour:
   m_ObjectHideFlags: 0

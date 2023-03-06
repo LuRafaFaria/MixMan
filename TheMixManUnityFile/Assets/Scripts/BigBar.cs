@@ -12,9 +12,14 @@ public class BigBar : MonoBehaviour
     RectTransform r_I_Rect;
     RectTransform goalRect;
 
+    public bool bothInGoal;
+
 
     float max_L_I_Prog;
     float max_R_I_Prog;
+
+    float min_L_I_Prog;
+    float min_R_I_Prog;
 
     float current_L_I_Prog;
     float current_R_I_Prog;
@@ -24,12 +29,16 @@ public class BigBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        bothInGoal = false;
         l_I_Rect = l_I_Prog.GetComponent<RectTransform>(); 
         r_I_Rect = r_I_Prog.GetComponent<RectTransform>(); 
         goalRect = goal.GetComponent<RectTransform>();
 
         max_L_I_Prog = goalRect.anchoredPosition.x + goalRect.pivot.x  * goalRect.rect.width;
         max_R_I_Prog = goalRect.anchoredPosition.x + goalRect.pivot.x  * goalRect.rect.width;
+
+        min_L_I_Prog = goalRect.anchoredPosition.x - goalRect.pivot.x * goalRect.rect.width;
+        min_R_I_Prog = goalRect.anchoredPosition.x - goalRect.pivot.x * goalRect.rect.width;
 
         current_L_I_Prog = l_I_Rect.rect.width;
         current_R_I_Prog = r_I_Rect.rect.width;
@@ -43,37 +52,53 @@ public class BigBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckGoal();
         CheckBoundaries();
-        CheckOvershoot();
+        
         
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
             l_I_Rect.sizeDelta = new Vector2(l_I_Rect.rect.width + 5, l_I_Rect.rect.height);
             current_L_I_Prog = l_I_Rect.rect.width;
+            CheckOvershoot(KeyCode.Q);
+           
         }            
-        else if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             r_I_Rect.sizeDelta = new Vector2(r_I_Rect.rect.width + 5, r_I_Rect.rect.height);
             current_R_I_Prog = r_I_Rect.rect.width;
+            CheckOvershoot(KeyCode.E);
+            
         }
              
     }
 
-    void CheckOvershoot()
+    void CheckOvershoot(KeyCode keyCode)
     {
-        if (current_L_I_Prog > max_L_I_Prog)
-        {
-            l_I_Overshoot = current_L_I_Prog - max_L_I_Prog;
+        bool isOver100 = current_L_I_Prog + current_R_I_Prog > 100;
+        Debug.Log("Before changes:  " + isOver100);
 
-            Debug.Log(l_I_Overshoot);
+        if (isOver100 && keyCode == KeyCode.Q)
+        {
+            r_I_Rect.sizeDelta = new Vector2(100 - current_L_I_Prog, r_I_Rect.rect.height);
+           
         }
 
-        if (current_R_I_Prog > max_R_I_Prog)
+        if (isOver100 && keyCode == KeyCode.E)
         {
-            r_I_Overshoot = current_R_I_Prog - max_R_I_Prog;
-            Debug.Log(r_I_Overshoot);
+            l_I_Rect.sizeDelta = new Vector2(100 - current_R_I_Prog, l_I_Rect.rect.height);
+            
         }
+
+        current_L_I_Prog = l_I_Rect.rect.width;
+        current_R_I_Prog = r_I_Rect.rect.width;
+
+        isOver100 = current_L_I_Prog + current_R_I_Prog > 100;
+
+        Debug.Log("After changes:  " + isOver100);
+
+        Debug.Log("current L_Prog: " + current_L_I_Prog + "  current R_Prog: " + current_R_I_Prog);
     }
 
     void CheckBoundaries()
@@ -86,6 +111,18 @@ public class BigBar : MonoBehaviour
         {
             l_I_Rect.sizeDelta = new Vector2(1, l_I_Rect.rect.height);
             r_I_Rect.sizeDelta = new Vector2(99, r_I_Rect.rect.height);
+        }
+    }
+
+    void CheckGoal()
+    {
+        if((current_L_I_Prog >= min_L_I_Prog && current_L_I_Prog <= max_L_I_Prog)
+            &&
+            (current_R_I_Prog >= min_R_I_Prog && current_R_I_Prog <= max_R_I_Prog)
+            )
+        {
+            bothInGoal = true;
+            Debug.Log("Win");
         }
     }
 }
