@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BigBar : MonoBehaviour
 {
+
     [SerializeField]GameObject l_I_Prog;
     [SerializeField]GameObject r_I_Prog;
     [SerializeField]GameObject goal;
@@ -31,6 +33,14 @@ public class BigBar : MonoBehaviour
 
     float l_I_Overshoot;
     float r_I_Overshoot;
+
+    bool finishedMix;
+
+    int currentMixInp;
+    int mixCounter;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +48,12 @@ public class BigBar : MonoBehaviour
         l_I_Rect = l_I_Prog.GetComponent<RectTransform>(); 
         r_I_Rect = r_I_Prog.GetComponent<RectTransform>(); 
         goalRect = goal.GetComponent<RectTransform>();
+
+        l_I_Prog.transform.localPosition = new Vector3(GetComponent<RectTransform>().rect.width / -2, 0, 1);
+
+        r_I_Prog.transform.localPosition = new Vector3(GetComponent<RectTransform>().rect.width / 2, 0, 1);
+
+        Debug.Log(GetComponent<RectTransform>().rect.width);
 
         max_L_I_Prog = goalRect.anchoredPosition.x + goalRect.pivot.x  * goalRect.rect.width;
         max_R_I_Prog = goalRect.anchoredPosition.x + goalRect.pivot.x  * goalRect.rect.width;
@@ -50,8 +66,8 @@ public class BigBar : MonoBehaviour
 
         l_I_Overshoot = 0;
         r_I_Overshoot = 0;
-       
 
+        mixCounter = 0;
     }
 
     IEnumerator Wait1FrameQ() 
@@ -59,7 +75,7 @@ public class BigBar : MonoBehaviour
         yield return null;
         Debug.Log("coisou1");
 
-        l_I_Rect.sizeDelta = new Vector2(l_I_Rect.rect.width + tempBar1.GetComponent<TempBar>().valueWhenPressed1 / 2f, l_I_Rect.rect.height);
+        l_I_Rect.sizeDelta = new Vector2(l_I_Rect.rect.width + tempBar1.GetComponent<TempBar>().valueWhenPressed1, l_I_Rect.rect.height);
         current_L_I_Prog = l_I_Rect.rect.width;
         CheckOvershoot(KeyCode.Q);
     }
@@ -68,7 +84,7 @@ public class BigBar : MonoBehaviour
     {
         yield return null;
         Debug.Log("coisou2");
-        r_I_Rect.sizeDelta = new Vector2(r_I_Rect.rect.width + tempBar2.GetComponent<TempBar>().valueWhenPressed2 / 2f, r_I_Rect.rect.height);
+        r_I_Rect.sizeDelta = new Vector2(r_I_Rect.rect.width + tempBar2.GetComponent<TempBar>().valueWhenPressed2, r_I_Rect.rect.height);
         current_R_I_Prog = r_I_Rect.rect.width;
         CheckOvershoot(KeyCode.E);
     }
@@ -76,8 +92,17 @@ public class BigBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckGoal();
-        CheckBoundaries();
+
+        if (!bothInGoal)
+        {
+            CheckGoal();
+            CheckBoundaries();
+        }
+        else
+        {
+
+        }
+        
         
 
              
@@ -86,23 +111,55 @@ public class BigBar : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+
+        if (!bothInGoal)
         {
-            StartCoroutine(Wait1FrameQ());
+            if (tempBar1.GetComponent<TempBar>().isReadingInput && Input.GetKeyUp(KeyCode.Q))
+            {
+                StartCoroutine(Wait1FrameQ());
+            }
+            if (tempBar2.GetComponent<TempBar>().isReadingInput && Input.GetKeyUp(KeyCode.E))
+            {
+                StartCoroutine(Wait1FrameE());
+            }
+
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        else
         {
-            StartCoroutine(Wait1FrameE());
+            MixMaterials();
+        }
+
+    }
+
+    void MixMaterials()
+    {
+        if (mixCounter < 8)
+        {
+            if (currentMixInp == 1 && Input.GetKeyDown(KeyCode.Q))
+            {
+                currentMixInp = 2;
+                mixCounter++;
+            }
+            else if (currentMixInp == 2 && Input.GetKeyDown(KeyCode.E))
+            {
+                currentMixInp = 1;
+                mixCounter++;
+            }
+        }
+        else
+        {
+            Debug.Log("aha you won, loser");
         }
     }
 
+
     void CheckOvershoot(KeyCode keyCode)
     {
-        bool isOver100 = current_L_I_Prog + current_R_I_Prog > 100;
+        bool isOver100 = current_L_I_Prog + current_R_I_Prog > gameObject.GetComponent<RectTransform>().rect.width;
 
         if (isOver100 && keyCode == KeyCode.Q)
         {
-            r_I_Rect.sizeDelta = new Vector2(100 - current_L_I_Prog, r_I_Rect.rect.height);
+            r_I_Rect.sizeDelta = new Vector2(gameObject.GetComponent<RectTransform>().rect.width - current_L_I_Prog, r_I_Rect.rect.height);
             l_I_Overshoot =  current_L_I_Prog - max_L_I_Prog;
             if(current_L_I_Prog > current_R_I_Prog)
             r_I_Overshoot = 0;
@@ -110,7 +167,7 @@ public class BigBar : MonoBehaviour
 
         if (isOver100 && keyCode == KeyCode.E)
         {
-            l_I_Rect.sizeDelta = new Vector2(100 - current_R_I_Prog, l_I_Rect.rect.height);
+            l_I_Rect.sizeDelta = new Vector2(gameObject.GetComponent<RectTransform>().rect.width - current_R_I_Prog, l_I_Rect.rect.height);
             r_I_Overshoot = current_R_I_Prog - max_R_I_Prog;
             if(current_R_I_Prog > current_L_I_Prog)
             l_I_Overshoot = 0;
@@ -122,14 +179,14 @@ public class BigBar : MonoBehaviour
 
     void CheckBoundaries()
     {
-        if(l_I_Rect.rect.width >= 100)
+        if(l_I_Rect.rect.width >= gameObject.GetComponent<RectTransform>().rect.width)
         {
-            l_I_Rect.sizeDelta = new Vector2(99, l_I_Rect.rect.height);
+            l_I_Rect.sizeDelta = new Vector2(gameObject.GetComponent<RectTransform>().rect.width - 1, l_I_Rect.rect.height);
             r_I_Rect.sizeDelta = new Vector2(1, r_I_Rect.rect.height);
-        }else if(r_I_Rect.rect.width >= 100)
+        }else if(r_I_Rect.rect.width >= gameObject.GetComponent<RectTransform>().rect.width)
         {
             l_I_Rect.sizeDelta = new Vector2(1, l_I_Rect.rect.height);
-            r_I_Rect.sizeDelta = new Vector2(99, r_I_Rect.rect.height);
+            r_I_Rect.sizeDelta = new Vector2(gameObject.GetComponent<RectTransform>().rect.width - 1, r_I_Rect.rect.height);
         }
     }
 
@@ -141,7 +198,8 @@ public class BigBar : MonoBehaviour
             )
         {
             bothInGoal = true;
-            Debug.Log("Win");
+            goal.GetComponent<Image>().color = Color.green;
+            currentMixInp = 1;
         }
     }
 }

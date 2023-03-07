@@ -135,6 +135,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2060257595}
     m_Modifications:
+    - target: {fileID: 8065374173590022385, guid: 189c86631a3d2254895e867cc50fc9de, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8065374173877320349, guid: 189c86631a3d2254895e867cc50fc9de, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8065374173877320349, guid: 189c86631a3d2254895e867cc50fc9de, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 8065374174062297649, guid: 189c86631a3d2254895e867cc50fc9de, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 8065374174062297649, guid: 189c86631a3d2254895e867cc50fc9de, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 8065374174381887812, guid: 189c86631a3d2254895e867cc50fc9de, type: 3}
       propertyPath: m_Name
       value: BigBarBody
@@ -177,7 +197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8065374174381887815, guid: 189c86631a3d2254895e867cc50fc9de, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 450.75
       objectReference: {fileID: 0}
     - target: {fileID: 8065374174381887815, guid: 189c86631a3d2254895e867cc50fc9de, type: 3}
       propertyPath: m_SizeDelta.y
@@ -507,6 +527,30 @@ PrefabInstance:
     - target: {fileID: 1327478396713970722, guid: 2a9829ad03f7e5c4683c22e5762ea115, type: 3}
       propertyPath: m_Name
       value: TempBars
+      objectReference: {fileID: 0}
+    - target: {fileID: 4621077980346495218, guid: 2a9829ad03f7e5c4683c22e5762ea115, type: 3}
+      propertyPath: m_Name
+      value: L_I_Temp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4621077980346495230, guid: 2a9829ad03f7e5c4683c22e5762ea115, type: 3}
+      propertyPath: nerfMultiplier
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4621077980346495230, guid: 2a9829ad03f7e5c4683c22e5762ea115, type: 3}
+      propertyPath: powerMultiplier
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4621077980459432457, guid: 2a9829ad03f7e5c4683c22e5762ea115, type: 3}
+      propertyPath: m_Name
+      value: R_I_Temp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4621077980459432459, guid: 2a9829ad03f7e5c4683c22e5762ea115, type: 3}
+      propertyPath: nerfMultiplier
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4621077980459432459, guid: 2a9829ad03f7e5c4683c22e5762ea115, type: 3}
+      propertyPath: powerMultiplier
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7945804057519171822, guid: 2a9829ad03f7e5c4683c22e5762ea115, type: 3}
       propertyPath: m_Pivot.x

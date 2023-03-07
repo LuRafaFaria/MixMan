@@ -14,6 +14,10 @@ public class TempBar : MonoBehaviour
     public float valueWhenPressed1 = 0;
     public float valueWhenPressed2 = 0;
 
+    [SerializeField] float nerfMultiplier;
+
+    public bool isReadingInput;
+
 
     // Start is called before the first frame update
     void Start()
@@ -55,29 +59,41 @@ public class TempBar : MonoBehaviour
         switch (statBarTemp)
         {
             case StatBar.Temp1:
-                if (Input.GetKeyDown(KeyCode.Q))
+                if (!isReadingInput && Input.GetKeyUp(KeyCode.Q))
                 {
+                    isReadingInput = true;
+                    StartCoroutine(ReadInput());
                     StoreValueNowTemp1();
                 }
                 break;
             case StatBar.Temp2:
-                if (Input.GetKeyDown(KeyCode.E))
+                if (!isReadingInput && Input.GetKeyUp(KeyCode.E))
                 {
+                    isReadingInput = true;
+                    StartCoroutine(ReadInput());
                     StoreValueNowTemp2();
                 }
                 break;
         }
     }
 
+
+    public IEnumerator ReadInput()
+    {
+        yield return new WaitForSeconds(0.1f);
+        isReadingInput = false;
+    }
+
+
     void StoreValueNowTemp1()
     {
-        valueWhenPressed1 = barRect.sizeDelta.x;
+        valueWhenPressed1 = barRect.sizeDelta.x / nerfMultiplier;
         Debug.Log("Temp1:" + valueWhenPressed1);
     }
 
     void StoreValueNowTemp2()
     {
-        valueWhenPressed2 = barRect.sizeDelta.x;
+        valueWhenPressed2 = barRect.sizeDelta.x / nerfMultiplier;
         Debug.Log("Temp2:" + valueWhenPressed2);
     }
 
