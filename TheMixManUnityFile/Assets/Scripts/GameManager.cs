@@ -12,22 +12,28 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 30;
         //GameIsOver = false;
     }
 
     void Update()
     {
-        /*if(GameIsOver)  
-            return;*/
+        //if(GameIsOver)
+        //{
+        //    return;
+        //}
+            
         
     }
 
-    void EndGame()
+    public void EndGame()
     {
+        Debug.Log("you loser");
+        Time.timeScale = 0;
         /*GameIsOver = true;
         gameOverUI.SetActive(true);*/
     }
+
 
     public void WinLevel()
     {

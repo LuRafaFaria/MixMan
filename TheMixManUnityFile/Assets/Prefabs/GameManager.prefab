@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3296147945546762305}
   - component: {fileID: 7902430304444435721}
+  - component: {fileID: 6688275302833320376}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48,3 +49,16 @@ MonoBehaviour:
   nextLevel: TuesdayLevel
   levelToUnlock: 2
   sceneFader: {fileID: 0}
+--- !u!114 &6688275302833320376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822870472065522641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f589d14f81a138e44bb6955445435e3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startMistakes: 3

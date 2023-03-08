@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BigBar : MonoBehaviour
 {
-    int framecounter;
+    MistakeManager mistakeManager;
 
     [SerializeField]GameObject l_I_Prog;
     [SerializeField]GameObject r_I_Prog;
@@ -73,7 +73,8 @@ public class BigBar : MonoBehaviour
         r_I_Overshoot = 0;
 
         mixCounter = 0;
-        framecounter = 0;
+
+        mistakeManager = GameObject.Find("MistakesHolder").GetComponent<MistakeManager>();
     }
 
     IEnumerator Wait1FrameQ() 
@@ -180,6 +181,7 @@ public class BigBar : MonoBehaviour
 
         if (isOver100 && keyCode == KeyCode.Q)
         {
+            mistakeManager.RemoveMistake();
             r_I_Rect.sizeDelta = new Vector2(gameObject.GetComponent<RectTransform>().rect.width - current_L_I_Prog, r_I_Rect.rect.height);
             l_I_Overshoot =  current_L_I_Prog - max_L_I_Prog;
             if(current_L_I_Prog > current_R_I_Prog)
@@ -188,6 +190,7 @@ public class BigBar : MonoBehaviour
 
         if (isOver100 && keyCode == KeyCode.E)
         {
+            mistakeManager.RemoveMistake();
             l_I_Rect.sizeDelta = new Vector2(gameObject.GetComponent<RectTransform>().rect.width - current_R_I_Prog, l_I_Rect.rect.height);
             r_I_Overshoot = current_R_I_Prog - max_R_I_Prog;
             if(current_R_I_Prog > current_L_I_Prog)
