@@ -12,6 +12,30 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 798a97330a859614cb4f36617502c0c0
   - enabled: 1
+    path: Assets/Scenes/LevelSelector.unity
+    guid: 7655ee9b72a4be448bd2b893b0d1e8eb
+  - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 59569d16c9c13fc40b97f4fd8c1da233
+  - enabled: 1
+    path: Assets/Scenes/MondayLevel.unity
+    guid: f766d6911c702f449af9da4bcfd2aad5
+  - enabled: 1
+    path: Assets/Scenes/TuesdayLevel.unity
+    guid: 5b79b9e485bbd274e8091b1f0816b150
+  - enabled: 1
+    path: Assets/Scenes/WednesdayLevel.unity
+    guid: df135f12ee9e6ff46ae39892e9445714
+  - enabled: 1
+    path: Assets/Scenes/ThursdayLevel.unity
+    guid: 6d58048d12157ad4eb47d311dbbb4064
+  - enabled: 1
+    path: Assets/Scenes/FridayLevel.unity
+    guid: 2af6f06a5f54efb4aac8a159b96c7f55
+  - enabled: 1
+    path: Assets/Scenes/SaturdayLevel.unity
+    guid: 84888240645acc049b0327e504aa2c77
+  - enabled: 1
+    path: Assets/Scenes/SundayLevel.unity
+    guid: 4a9e6c0fc71ecc642bf8572e73f21b90
   m_configObjects: {}

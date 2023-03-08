@@ -21,6 +21,7 @@ public class BigBar : MonoBehaviour
 
     public bool bothInGoal;
 
+    public GameManager gameManager;
 
     float max_L_I_Prog;
     float max_R_I_Prog;
@@ -149,6 +150,7 @@ public class BigBar : MonoBehaviour
         else
         {
             Debug.Log("aha you won, loser");
+            gameManager.WinLevel();
         }
     }
 

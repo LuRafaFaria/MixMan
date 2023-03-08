@@ -326,3 +326,4 @@ MonoBehaviour:
   tempBar1: {fileID: 0}
   tempBar2: {fileID: 0}
   bothInGoal: 0
+  gameManager: {fileID: 7902430304444435721, guid: b87c8654ff237e146abca19897b5a2c7, type: 3}
