@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BigBar : MonoBehaviour
 {
+    int framecounter;
 
     [SerializeField]GameObject l_I_Prog;
     [SerializeField]GameObject r_I_Prog;
@@ -13,6 +14,8 @@ public class BigBar : MonoBehaviour
 
     [SerializeField] GameObject tempBar1;
     [SerializeField] GameObject tempBar2;
+    [SerializeField] GameObject qSquare;
+    [SerializeField] GameObject eSquare;
 
 
     RectTransform l_I_Rect;
@@ -45,6 +48,7 @@ public class BigBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
         bothInGoal = false;
         l_I_Rect = l_I_Prog.GetComponent<RectTransform>(); 
         r_I_Rect = r_I_Prog.GetComponent<RectTransform>(); 
@@ -69,6 +73,7 @@ public class BigBar : MonoBehaviour
         r_I_Overshoot = 0;
 
         mixCounter = 0;
+        framecounter = 0;
     }
 
     IEnumerator Wait1FrameQ() 
@@ -93,6 +98,7 @@ public class BigBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
 
         if (!bothInGoal)
         {
@@ -112,7 +118,7 @@ public class BigBar : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        
         if (!bothInGoal)
         {
             if (tempBar1.GetComponent<TempBar>().isReadingInput && Input.GetKeyUp(KeyCode.Q))
@@ -136,15 +142,28 @@ public class BigBar : MonoBehaviour
     {
         if (mixCounter < 8)
         {
-            if (currentMixInp == 1 && Input.GetKeyDown(KeyCode.Q))
+
+            if (currentMixInp == 1)
             {
-                currentMixInp = 2;
-                mixCounter++;
+                qSquare.GetComponent<Image>().color = Color.green;
+                eSquare.GetComponent<Image>().color = Color.white;
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    currentMixInp = 2;
+                    mixCounter++;
+                }
+
             }
-            else if (currentMixInp == 2 && Input.GetKeyDown(KeyCode.E))
+            else if (currentMixInp == 2)
             {
-                currentMixInp = 1;
-                mixCounter++;
+                qSquare.GetComponent<Image>().color = Color.white;
+                eSquare.GetComponent<Image>().color = Color.green;
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    currentMixInp = 1;
+                    mixCounter++;
+                }
+
             }
         }
         else
