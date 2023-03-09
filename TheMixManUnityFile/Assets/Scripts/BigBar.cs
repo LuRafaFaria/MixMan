@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class BigBar : MonoBehaviour
 {
+    //TODO: Temporario, modificar depois para o igrediente nos so
+    public enum Difficulty { Easy, Medium, Hard};
+    
+    public Difficulty difficulty;
+
     MistakeManager mistakeManager;
 
     [SerializeField]GameObject l_I_Prog;
@@ -58,7 +63,8 @@ public class BigBar : MonoBehaviour
 
         r_I_Prog.transform.localPosition = new Vector3(GetComponent<RectTransform>().rect.width / 2, 0, 1);
 
-        Debug.Log(GetComponent<RectTransform>().rect.width);
+
+        RandomizeGoalWidth();
 
         max_L_I_Prog = goalRect.anchoredPosition.x + goalRect.pivot.x  * goalRect.rect.width;
         max_R_I_Prog = goalRect.anchoredPosition.x + goalRect.pivot.x  * goalRect.rect.width;
@@ -138,6 +144,26 @@ public class BigBar : MonoBehaviour
         }
 
     }
+
+
+    void RandomizeGoalWidth()
+    {
+        switch (difficulty)
+        {
+            case Difficulty.Easy:
+                goalRect.sizeDelta = new Vector2(Random.Range(15, 20), goalRect.rect.height);
+                break;
+            case Difficulty.Medium:
+                goalRect.sizeDelta = new Vector2(Random.Range(10, 15), goalRect.rect.height);
+
+                break;
+            case Difficulty.Hard:
+                goalRect.sizeDelta = new Vector2(Random.Range(5, 10), goalRect.rect.height);
+
+                break;
+        }
+    }
+
 
     void MixMaterials()
     {
