@@ -10,10 +10,11 @@ public class CountdownTimer : MonoBehaviour
 
     void Start()
     {
+        Application.targetFrameRate = 30;
         currentTime = startingTime;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         currentTime -= 1 * Time.deltaTime;
         countdownText.text = currentTime.ToString("0");
